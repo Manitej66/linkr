@@ -18,7 +18,7 @@ const Redirect = ({ links }) => {
         description: links.data.description,
         images: [
           {
-            url: links.thumbnail[4].url,
+            url: links.data.thumbnail,
             width: 1920,
             height: 1080,
             alt: `hero image`,

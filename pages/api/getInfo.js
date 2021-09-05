@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   const { videoDetails: video } = await yt.info(videoId[1]);
 
   res.status(200).json({
-    thumbnail: video.thumbnail.thumbnails,
+    thumbnail: video.thumbnail.thumbnails[4].url,
     title: video.title,
     description: video.description,
   });
