@@ -13,10 +13,17 @@ const Redirect = ({ links }) => {
       title={links.data.title}
       description={links.data.description}
       openGraph={{
-        url: "https://www.url.ie/a",
-        title: "Open Graph Title",
-        description: "Open Graph Description",
-        images: links.thumbnail,
+        url: "https://upgrab.in",
+        title: links.data.title,
+        description: links.data.description,
+        images: [
+          {
+            url: links.thumbnail[4].url,
+            width: 1920,
+            height: 1080,
+            alt: `hero image`,
+          },
+        ],
         site_name: "linkr",
       }}
       twitter={{
