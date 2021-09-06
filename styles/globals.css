@@ -66,6 +66,7 @@ body {
   background-color: #1da1f2;
   color: white;
   text-align: center;
+  cursor: pointer;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
