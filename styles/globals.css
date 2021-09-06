@@ -69,11 +69,42 @@ body {
   cursor: pointer;
 }
 
+.links {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 4px;
+}
+
+.link {
+  border: 1px solid rgb(136, 126, 126);
+  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 2px 2px 8px rgb(136, 126, 126);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.copy {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
   .nav {
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
   .hero-text {
     max-width: 100%;
+  }
+  .links {
+    display: grid;
+    grid-template-columns: auto;
   }
 }

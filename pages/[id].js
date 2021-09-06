@@ -13,7 +13,7 @@ const Redirect = ({ links }) => {
       title={links.data.title}
       description={links.data.description}
       openGraph={{
-        url: "https://upgrab.in",
+        url: "https://linkrrr.vercel.app",
         title: links.data.title,
         images: [
           {

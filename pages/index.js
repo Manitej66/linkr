@@ -2,11 +2,11 @@ import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import { supabase } from "../db";
 import { useState } from "react";
-import { nanoid } from "nanoid";
+import Image from "next/image";
+import { NextSeo } from "next-seo";
 
-export default function Index() {
+export default function Index({ links }) {
   const [url, setUrl] = useState("");
-  const [data, setData] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -41,9 +41,31 @@ export default function Index() {
 
   return (
     <div className="container">
+      <NextSeo
+        title="Linkr"
+        description="Show YouTube Thumbnail preview in Twitter mobile"
+        openGraph={{
+          url: "https://linkrrr.vercel.app/",
+          title: "Linkr - Show YouTube Thumbnail preview in Twitter mobile",
+          images: [
+            {
+              url: "https://og-image.vercel.app/**Linkr**%20-%20Show%20YouTube%20Thumbnail%20preview%20in%20Twitter%20mobile%20.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg",
+              width: 1920,
+              height: 1080,
+              alt: `hero image`,
+            },
+          ],
+          site_name: "linkr",
+        }}
+        twitter={{
+          handle: "@pratamanitej",
+          site: "@linkr",
+          cardType: "summary_large_image",
+        }}
+      />
       <div className="nav">
         <p>Linkr 🚀</p>
-        <Link href="/">
+        <Link href="https://rzp.io/l/tcyc111j">
           <a className="donate-btn">Donate</a>
         </Link>
       </div>
@@ -63,7 +85,49 @@ export default function Index() {
         {loading ? "Loading..." : "Share to twitter"}
       </button>
 
-      {data && <p>{data}</p>}
+      {/* links */}
+      <h1 style={{ textAlign: "center" }}>Recent links</h1>
+      <div className="links">
+        {links.map((link) => (
+          <div className="link" key={link.id}>
+            <Link href={`/${link.shorten_link}`}>
+              <a>
+                <Image
+                  src={link.data.thumbnail}
+                  width={40}
+                  height={25}
+                  layout="responsive"
+                  alt="thumbnail"
+                />
+              </a>
+            </Link>
+            <div className="row">
+              <p>{link.data.title}</p>
+              <button
+                className="copy"
+                onClick={async () => {
+                  await navigator.clipboard.writeText(
+                    `https://linkrrr.vercel.app/${link.shorten_link}`
+                  );
+                  alert("Copied!");
+                }}
+              >
+                Copy URL
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  let { data: links, error } = await supabase.from("links").select("*");
+
+  return {
+    props: {
+      links: links,
+    },
+  };
 }
