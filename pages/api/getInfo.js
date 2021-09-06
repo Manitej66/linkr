@@ -14,6 +14,6 @@ export default async function handler(req, res) {
     thumbnail:
       video.thumbnail.thumbnails[video.thumbnail.thumbnails.length - 1].url,
     title: video.title,
-    description: video.description,
+    description: video.description.simpleText,
   });
 }
