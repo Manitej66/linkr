@@ -11,11 +11,11 @@ const Redirect = ({ links }) => {
   return (
     <NextSeo
       title={links.data.title}
-      description={links.data.description}
+      description={links.data.description.simpleText}
       openGraph={{
         url: "https://upgrab.in",
         title: links.data.title,
-        description: links.data.description,
+        description: links.data.description.simpleText,
         images: [
           {
             url: links.data.thumbnail,
