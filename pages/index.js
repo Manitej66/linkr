@@ -10,20 +10,22 @@ export default function Index() {
   const router = useRouter();
 
   const handleSubmit = async () => {
-    const id = nanoid(6);
-    // router.push(
-    //   "http://twitter.com/share?text=text goes here&url=http://google.com"
-    // );
-
     const response = await fetch(`/api/getInfo?url=${url}`);
     const json = await response.json();
+    const videoId = url.match(
+      /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/
+    );
 
     const { data, error } = await supabase
       .from("links")
-      .insert([{ og_link: url, shorten_link: id, data: json }]);
+      .insert([{ og_link: url, shorten_link: videoId, data: json }]);
 
     if (error) alert(error.message);
-    if (data) setData(id);
+    if (data) {
+      router.push(
+        `http://twitter.com/share?text=${json.title}&url=https://linkrrr.vercel.app/${videoId}`
+      );
+    }
   };
 
   return (
